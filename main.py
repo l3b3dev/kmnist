@@ -10,32 +10,32 @@ from models.mlp import MLP
 from pipeline import Pipeline
 
 from plotcm import plot_confusion_matrix
-from pytorch_image_classification import get_default_config, update_config, create_model, create_dataloader
+#from pytorch_image_classification import get_default_config, update_config, create_model, create_dataloader
 
 
-def load_config():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--config', type=str)
-    parser.add_argument('--resume', type=str, default='')
-    parser.add_argument('--local_rank', type=int, default=0)
-    parser.add_argument('options', default=None, nargs=argparse.REMAINDER)
-    args = parser.parse_args()
-
-    configs = get_default_config()
-    if args.config is not None:
-        configs.merge_from_file(args.config)
-    configs.merge_from_list(args.options)
-    if not torch.cuda.is_available():
-        configs.device = 'cpu'
-        configs.train.dataloader.pin_memory = False
-    if args.resume != '':
-        config_path = pathlib.Path(args.resume) / 'config.yaml'
-        configs.merge_from_file(config_path.as_posix())
-        configs.merge_from_list(['train.resume', True])
-    configs.merge_from_list(['train.dist.local_rank', args.local_rank])
-    configs = update_config(configs)
-    configs.freeze()
-    return configs
+# def load_config():
+#     parser = argparse.ArgumentParser()
+#     parser.add_argument('--config', type=str)
+#     parser.add_argument('--resume', type=str, default='')
+#     parser.add_argument('--local_rank', type=int, default=0)
+#     parser.add_argument('options', default=None, nargs=argparse.REMAINDER)
+#     args = parser.parse_args()
+#
+#     configs = get_default_config()
+#     if args.config is not None:
+#         configs.merge_from_file(args.config)
+#     configs.merge_from_list(args.options)
+#     if not torch.cuda.is_available():
+#         configs.device = 'cpu'
+#         configs.train.dataloader.pin_memory = False
+#     if args.resume != '':
+#         config_path = pathlib.Path(args.resume) / 'config.yaml'
+#         configs.merge_from_file(config_path.as_posix())
+#         configs.merge_from_list(['train.resume', True])
+#     configs.merge_from_list(['train.dist.local_rank', args.local_rank])
+#     configs = update_config(configs)
+#     configs.freeze()
+#     return configs
 
 
 @torch.no_grad()
