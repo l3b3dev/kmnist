@@ -92,7 +92,7 @@ def plot_result(results, names):
 
 def main():
     models = [MLP(), CNN()]
-    epochs = 10
+    epochs = 200
     results = []
 
     # Can comment the below out during development
@@ -113,7 +113,8 @@ def main():
             accuracies.append(accuracy)
         results.append(accuracies)
 
-    plot_result(results, [m.__class__.__name__ for m in models])
+    #plot_result(results, [m.__class__.__name__ for m in models])
+    [torch.save(m.state_dict(), f'results/{m.__class__.__name__}.pth') for m in models]
 
 
 if __name__ == "__main__":
