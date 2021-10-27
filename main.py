@@ -153,10 +153,10 @@ def main():
     results = []
 
     # Can comment the below out during development
-    images, labels = Pipeline(MLP(), 0.003).view_batch()
-    print(labels)
-    plt.imshow(images, cmap="Greys")
-    plt.show()
+    # images, labels = Pipeline(MLP(), 0.003).view_batch()
+    # print(labels)
+    # plt.imshow(images, cmap="Greys")
+    # plt.show()
 
     for model in models:
         print(f"Training {model.__class__.__name__}...")
